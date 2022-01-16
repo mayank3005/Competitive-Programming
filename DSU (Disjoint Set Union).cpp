@@ -17,7 +17,7 @@ void Union(int a, int b) {
 	if (a != b) {
 		if (size[a] < size[b]) swap(a, b);
 		parent[b] = a;
-		size[a] += b;
+		size[a] += size[b];
 	}
 }
   
