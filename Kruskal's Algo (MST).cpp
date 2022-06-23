@@ -1,3 +1,5 @@
+// TC : 0 ( ElogE + E*4alpha ) 
+
 const int N = 1e5 + 7;
 
 int parent[N], size[N];
