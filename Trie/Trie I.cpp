@@ -25,8 +25,8 @@ public:
 };
 
 class Trie {
-public:
     Node *root;
+public:
     Trie() {
         root=new Node();    
     }
