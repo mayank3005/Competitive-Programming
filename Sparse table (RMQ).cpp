@@ -1,29 +1,33 @@
-const int MAXN = 2e5;
-const int K = 25; // K>=log2[n]
-int table[MAXN][K + 1];
-int lg[MAXN];
+const int N = 1e5 + 5;
 
-void buildLog(int N) {
-	lg[1] = 0;
-	for (int i = 2; i <= N; i++) {
-		lg[i] = 1 + lg[i / 2];
+const int maxn = N;
+const int max_logn = 20;
+template<typename T>
+struct SparseTable {
+	int log[maxn];
+	T dp[max_logn][maxn];
+	T combine(T a, T b) {
+		return __gcd(a, b);
 	}
-}
-
-void build(vector<int> &v) {
-	int N = v.size();
-	for (int l = N - 1; l >= 0; l--) {
-		for (int w = 0; w < 25; w++) {
-			int r = l + (1 << w) - 1;
-			if (r >= N) break;
-			if (w == 0) table[l][0] = v[l];
-			else table[l][w] = min(table[l][w - 1], table[l + (1 << (w - 1))][w - 1]);
+	SparseTable() {
+		log[1] = 0;
+		for (int i = 2; i < maxn; i++)
+			log[i] = log[i / 2] + 1;
+	}
+	void build(vector<T> &b)
+	{
+		int n = b.size();
+		for (int i = 0; i < n; ++i) {
+			dp[0][i] = b[i];
 		}
+		for (int j = 1; j < max_logn; j++)
+			for (int i = 0; i + (1 << j) < maxn; i++)
+				dp[j][i] = combine(dp[j - 1][i], dp[j - 1][i + (1 << (j - 1))]);
 	}
-}
-
-int query(int l, int r) {
-	int w = r - l + 1;
-	int power = lg[w];
-	return min(table[l][power], table[r - (1 << power) + 1][power]);
-}
+	T query(int l, int r)
+	{
+		int j = log[r - l + 1];
+		return combine(dp[j][l], dp[j][r - (1 << j) + 1]);
+	}
+};
+SparseTable<int> sp;
