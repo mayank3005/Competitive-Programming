@@ -1,23 +1,26 @@
-const int N = 1e5 + 7;
-
-int parent[N], size[N];
-
-void make(int v) {
-	parent[v] = v;
-	size[v] = 1;
-}
-
-int find(int v) {
-	if (v == parent[v]) return v;
-	return parent[v] = find(parent[v]);
-}
-
-void Union(int a, int b) {
-	a = find(a); b = find(b);
-	if (a != b) {
-		if (size[a] < size[b]) swap(a, b);
-		parent[b] = a;
-		size[a] += size[b];
-	}
-}
-  
+class DisjointSet{
+    vector<int> parent,size;
+public:
+    DisjointSet(int n){
+        parent.resize(n);
+        size.resize(n);
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            size[i]=1;
+        }
+    }   
+    int findParent(int u){
+        if(u==parent[u]) return u;
+        return parent[u]=findParent(parent[u]);
+    }
+    void Union(int u,int v){
+        u=findParent(u),v=findParent(v);
+        if(size[u]>size[v]){
+            parent[v]=u;
+            size[u]+=size[v];
+        }else{
+            parent[u]=v;
+            size[v]+=size[u];
+        }
+    }
+};
