@@ -1,4 +1,5 @@
 Graphs : 
+####### Dijkstra's algo works only when the distance/cost is monotonic.
 
 Dijkstra may or may not work for negative edges . 
 
