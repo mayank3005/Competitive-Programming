@@ -1,3 +1,4 @@
+//  ----> Merge Sort trees are used when each node is required to have info about the underlying child elements   <--------
 // Find the elements in a given range greater than a value k
 
 struct segTree {
