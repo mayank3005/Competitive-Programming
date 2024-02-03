@@ -4,7 +4,7 @@
   Space complexity : 0(V+V)
 
 */
-void dijkstra(vector<pair<int, int>> adj[], int n, int st) {
+vector<int> dijkstra(vector<pair<int, int>> adj[], int n, int st) {
 	vector<int> dist(n, 1e8);
 	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 	dist[st] = 0;
@@ -20,5 +20,5 @@ void dijkstra(vector<pair<int, int>> adj[], int n, int st) {
 			}
 		}
 	}
-	for (auto i : dist) cout << i << " ";
+	return dist;
 }
